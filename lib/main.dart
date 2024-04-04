@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_villains/villain.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,50 +10,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: WavePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class WavePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Villains Example'),
+        title: Text('Wave Page'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SecondPage(),
-              ),
-            );
-          },
-          child: Text('Go to Second Page'),
-        ),
-      ),
-    );
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Page'),
-      ),
-      body: Center(
-        child: Villain(
-          villainAnimation: VillainAnimation.fade(),
-          child: Text(
-            'This is the second page!',
-            style: TextStyle(fontSize: 24),
+      body: Stack(
+        children: [
+          WaveWidget(
+            config: CustomConfig(
+              gradients: [
+                [Colors.blue, Colors.blue.shade200],
+                [Colors.blue.shade200, Colors.blue.shade100],
+              ],
+              durations: [35000, 19440],
+              heightPercentages: [0.20, 0.23],
+              gradientBegin: Alignment.bottomLeft,
+              gradientEnd: Alignment.topRight,
+            ),
+            waveAmplitude: 0,
+            size: Size(
+              double.infinity,
+              double.infinity,
+            ),
           ),
-        ),
+          Center(
+            child: Text(
+              'Wave Effect Page',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }
